@@ -4,8 +4,7 @@ module DoubleRepresenter
   include Roar::Representer::JSON
   include Roar::Representer::Feature::Hypermedia
 
-  query do |template|
-    template.name = "Foo"
+  query :foo do |template|
     template.url = "/somewhere.json"
     template.http_method = "GET"
     template.add_param("limit", "the limit")
@@ -18,7 +17,7 @@ describe "Roar::Representer::Feature::QueryTemplate" do
 
   let(:expected_result) do
       {
-        name: "Foo",
+        name: "foo_query",
         url: "/somewhere.json?limit={limit}&offset={offset}",
         http_method: "GET",
         params: {
@@ -29,7 +28,6 @@ describe "Roar::Representer::Feature::QueryTemplate" do
   end
 
   it "adds params" do
-    require 'pry'; binding.pry
     expect(represented.to_json["queries"].first).to eq(expected_result)
   end
 end

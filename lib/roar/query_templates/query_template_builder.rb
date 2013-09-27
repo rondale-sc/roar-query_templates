@@ -1,8 +1,9 @@
 class QueryTemplateBuilder
   attr_accessor :template
 
-  def initialize
+  def initialize(name)
     self.template ||= {}
+    self.name = name
   end
 
   def url=(val)
@@ -13,8 +14,8 @@ class QueryTemplateBuilder
     "#{template[:url]}?#{url_params}"
   end
 
-  def name=(val)
-    template[:name] = val
+  def name=(value)
+    template[:name] = "#{value}_query"
   end
 
   def name
@@ -44,9 +45,8 @@ class QueryTemplateBuilder
     template[:http_method]
   end
 
-  def self.build_template
-    query_template_builder = self.new
-    yield query_template_builder
-    return query_template_builder
+  def to_json
+
+    require 'pry'; binding.pry
   end
 end
